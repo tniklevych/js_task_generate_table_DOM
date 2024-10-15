@@ -372,6 +372,10 @@ function addRow(data) {
     cell.textContent = cellContent;
     row.appendChild(cell);
   }
+
+  table.appendChild(row);
 }
 
-people.forEach(addRow);
+for (const person of people) {
+  addRow(person);
+}
