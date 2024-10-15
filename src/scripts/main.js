@@ -356,40 +356,22 @@ const people = [
 
 const table = document.querySelector('.dashboard');
 
-function addRow(object) {
+function addRow(data) {
   const row = document.createElement('tr');
 
-  const nameCell = document.createElement('td');
+  for (const prop in data) {
+    const cell = document.createElement('td');
+    let cellContent = data[prop];
 
-  nameCell.textContent = object.name;
-  row.appendChild(nameCell);
+    if (prop === 'died' && data.born) {
+      cellContent = data[prop] - data.born;
+    } else if (prop === 'century') {
+      cellContent = Math.ceil(data[prop] / 100);
+    }
 
-  const genderCell = document.createElement('td');
-
-  genderCell.textContent = object.sex;
-  row.appendChild(genderCell);
-
-  const bornCell = document.createElement('td');
-
-  bornCell.textContent = object.born;
-  row.appendChild(bornCell);
-
-  const diedCell = document.createElement('td');
-
-  diedCell.textContent = object.died;
-  row.appendChild(diedCell);
-
-  const ageCell = document.createElement('td');
-
-  ageCell.textContent = +object.died - +object.born;
-  row.appendChild(ageCell);
-
-  const centuryCell = document.createElement('td');
-
-  centuryCell.textContent = Math.ceil(object.died / 100);
-  row.appendChild(centuryCell);
-
-  table.appendChild(row);
+    cell.textContent = cellContent;
+    row.appendChild(cell);
+  }
 }
 
-people.forEach((person) => addRow(person));
+people.forEach(addRow);
