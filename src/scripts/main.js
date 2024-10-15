@@ -356,22 +356,42 @@ const people = [
 
 const table = document.querySelector('.dashboard');
 
-function addRow(data) {
+function addRow(object) {
   const row = document.createElement('tr');
 
-  for (const prop in data) {
-    const cell = document.createElement('td');
-    let cellContent = data[prop];
+  const nameCell = document.createElement('td');
 
-    if (prop === 'died' && data.born) {
-      cellContent = data[prop] - data.born;
-    } else if (prop === 'century') {
-      cellContent = Math.ceil(data[prop] / 100);
-    }
+  nameCell.textContent = object.name;
+  row.appendChild(nameCell);
 
-    cell.textContent = cellContent;
-    row.appendChild(cell);
+  const genderCell = document.createElement('td');
+
+  if (object.sex === 'f') {
+    genderCell.textContent = 'Female';
+  } else {
+    genderCell.textContent = 'Male';
   }
+  row.appendChild(genderCell);
+
+  const bornCell = document.createElement('td');
+
+  bornCell.textContent = object.born;
+  row.appendChild(bornCell);
+
+  const diedCell = document.createElement('td');
+
+  diedCell.textContent = object.died;
+  row.appendChild(diedCell);
+
+  const ageCell = document.createElement('td');
+
+  ageCell.textContent = +object.died - +object.born;
+  row.appendChild(ageCell);
+
+  const centuryCell = document.createElement('td');
+
+  centuryCell.textContent = Math.ceil(object.died / 100);
+  row.appendChild(centuryCell);
 
   table.appendChild(row);
 }
